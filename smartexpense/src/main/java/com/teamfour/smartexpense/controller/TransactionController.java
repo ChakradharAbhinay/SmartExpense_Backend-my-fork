@@ -23,6 +23,12 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
+    /**
+     * Create a new transaction.
+     *
+     * @param transactionRequest the request body containing transaction details
+     * @return the created transaction with HTTP 201 status
+     */
     @PostMapping
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<TransactionResponseDto> createTransaction(
@@ -31,6 +37,12 @@ public class TransactionController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    /**
+     * Get a single transaction by its ID.
+     *
+     * @param id the transaction ID
+     * @return the transaction details if found
+     */
     @GetMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<TransactionResponseDto> getTransaction(@PathVariable Long id) {
@@ -38,6 +50,12 @@ public class TransactionController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Get all transactions for a specific wallet.
+     *
+     * @param walletId the wallet ID
+     * @return list of transactions linked to the given wallet
+     */
     @GetMapping("/wallet/{walletId}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<TransactionResponseDto>> getTransactionsByWallet(@PathVariable Long walletId) {
@@ -45,6 +63,14 @@ public class TransactionController {
         return ResponseEntity.ok(transactions);
     }
 
+    /**
+     * Get transactions for a wallet within a specific date-time range.
+     *
+     * @param walletId  the wallet ID
+     * @param startDate the start date and time
+     * @param endDate   the end date and time
+     * @return list of transactions within the given time range
+     */
     @GetMapping("/wallet/{walletId}/date-range")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<TransactionResponseDto>> getTransactionsByWalletAndDateRange(
@@ -56,6 +82,13 @@ public class TransactionController {
         return ResponseEntity.ok(transactions);
     }
 
+    /**
+     * Update a transaction by its ID.
+     *
+     * @param id                the transaction ID
+     * @param transactionRequest the new transaction data
+     * @return the updated transaction details
+     */
     @PutMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<TransactionResponseDto> updateTransaction(
@@ -65,6 +98,12 @@ public class TransactionController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Delete a transaction by its ID.
+     *
+     * @param id the transaction ID
+     * @return HTTP 204 No Content if deleted
+     */
     @DeleteMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> deleteTransaction(@PathVariable Long id) {
