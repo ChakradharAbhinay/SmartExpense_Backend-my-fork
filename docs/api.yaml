@@ -5,7 +5,7 @@ info:
   description: API documentation for SmartExpense application.
 
 servers:
-  - url: http://localhost:8085
+  - url: <server-url>
 
 paths:
   /api/auth/login:
