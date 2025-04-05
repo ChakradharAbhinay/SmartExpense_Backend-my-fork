@@ -107,7 +107,7 @@ public class TransactionService {
 
         // Check budget if it's an expense and category is set
         if (category != null && requestDto.getType() == TransactionType.EXPENSE) {
-            budgetService.checkBudgetLimits(wallet.getUser().getId(), category.getId(), requestDto.getAmount());
+            budgetService.checkBudgetLimits(wallet.getId(), category.getId(), requestDto.getAmount());
         }
 
         return mapToDto(updatedTransaction);
