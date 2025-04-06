@@ -1,0 +1,25 @@
+name: CD - Build Packer Image
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Packer
+        uses: hashicorp/setup-packer@v2
+        with:
+          version: '1.9.2'
+
+      - name: Build Spring Boot app
+        run: ./mvnw clean package
+
+      - name: Run Packer
+        run: |
+          packer init ./packer/
+          packer build -var "artifact=target/smartexpense-0.0.1-SNAPSHOT.jar" ./packer/template.pkr.hcl
